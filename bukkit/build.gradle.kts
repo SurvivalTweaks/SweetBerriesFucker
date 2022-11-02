@@ -1,6 +1,7 @@
 plugins {
     kotlin("jvm")
-    id("net.minecrell.plugin-yml.bukkit")
+    id("com.vjh0107.bukkit-resource-generator")
+    id("com.vjh0107.bukkit-executor")
 }
 
 group = "com.vjh0107"
@@ -15,11 +16,20 @@ dependencies {
     compileOnly("com.vjh0107:barcodeframework-database:1.0.0") { isTransitive = true }
 }
 
-bukkit {
-    name = "SweetBerriesFucker"
-    main = "com.vjh0107.sweetberriesfucker.SweetBerriesFuckerPlugin"
-    depend = listOf("BarcodeFramework")
-    author = "vjh0107"
-    website = "http://github.com/vjh0107"
-    apiVersion = "1.19"
+barcodeTasks {
+    archiveTask = tasks.jar
+
+    bukkitResourceGenerator {
+        name = "SweetBerriesFucker"
+        main = "com.vjh0107.sweetberriesfucker.SweetBerriesFuckerPlugin"
+        depend = listOf("BarcodeFramework")
+        author = "vjh0107"
+        website = "http://github.com/SurvivalTweaks"
+        apiVersion = "1.19"
+    }
+    bukkitExecutor {
+        this.bukkitDir.set(file("localBukkit"))
+        this.bukkitFileName.set("paper.jar")
+        this.enabled.set(false)
+    }
 }
